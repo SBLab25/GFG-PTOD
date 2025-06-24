@@ -1,0 +1,40 @@
+
+
+
+
+// User function Template for Java
+
+class Solution {
+    public int kthElement(int a[], int b[], int k) {
+        // code here
+        int aSize=a.length;
+        int bSize=b.length;
+        
+        int ans=0,i=0,j=0;
+        while(k>0 && i<aSize && j<bSize){
+            if(a[i]<b[j]){
+                ans=a[i];
+                i++;
+            }
+            else{
+                ans=b[j];
+                j++;
+            }
+            k--;
+        }
+        
+        while(k>0 && i<aSize){
+            ans=a[i];
+            i++;
+            k--;
+        }
+        
+        while(k>0 && j<bSize){
+            ans=b[j];
+            j++;
+            k--;
+        }
+        
+        return ans;
+    }
+}

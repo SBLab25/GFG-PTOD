@@ -1,0 +1,48 @@
+class Solution {
+    public int findMaxDiff(int[] arr) {
+        // code here
+        int n = arr.length;
+        int[] ls =new int[n];
+        int[] rs = new int[n];
+        ls[0] = 0;
+        rs[n-1] =0;
+        for(int i=1;i<n;i++){
+            int j=i-1;
+            boolean entry = false;
+            while(j>=0){
+                if(arr[i]>arr[j]){
+                    ls[i] = arr[j];
+                    entry = true;
+                    break;
+                }
+                j--;
+            }
+            if(!entry){
+                ls[i]= 0;
+            }
+            
+        }
+        for(int i=n-2;i>=0;i--){
+            int j=i+1;
+            boolean entry = false;
+            while(j<n){
+                if(arr[i]>arr[j]){
+                    rs[i] = arr[j];
+                    entry = true;
+                    break;
+                }
+                j++;
+            }
+            if(!entry){
+                rs[i]= 0;
+            }
+            
+        }
+        int max =0;
+        for(int i=0;i<n;i++){
+            int sum = Math.abs(ls[i]-rs[i]);
+            max= Math.max(max,sum);
+        }
+        return max;
+    }
+}
