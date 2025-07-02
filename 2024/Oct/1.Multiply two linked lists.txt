@@ -1,0 +1,33 @@
+/*Node is defined as
+class Node
+{
+    int data;
+    Node next;
+    Node(int data) {
+        this.data=data;
+        this.next = null;
+    }
+}*/
+
+class Solution {
+    public long multiplyTwoLists(Node first, Node second) {
+        // Code here
+        long num1=first.data;
+        Node n1=first.next;
+        while(n1!=null){
+            num1=(num1*10)%1000000007;
+            num1+=n1.data;
+            n1=n1.next;
+        }
+        
+        long num2=second.data;
+        Node n2=second.next;
+        while(n2!=null){
+            num2=(num2*10)%1000000007;
+            num2+=n2.data;
+            n2=n2.next;
+        }
+        
+        return (num1*num2)%1000000007;
+    }
+}
