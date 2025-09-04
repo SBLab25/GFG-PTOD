@@ -1,0 +1,35 @@
+/*
+class Node
+{
+    int data;
+    Node next;
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+*/
+
+class Solution {
+    Node rev(Node head, int k){
+        Node curr = head, forw, prev = null;
+        
+        if(head == null) return head;
+        
+        int z = k;
+        while(curr != null && z > 0){
+            forw = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = forw;
+            z--;
+        }
+        head.next = rev(curr, k);
+        return prev;
+    }
+    public Node reverseKGroup(Node head, int k) {
+        // code here
+        return rev(head,k);
+    }
+}
