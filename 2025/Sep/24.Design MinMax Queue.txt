@@ -1,0 +1,39 @@
+class SpecialQueue {
+
+    private Queue<Integer>pq;
+    private TreeMap<Integer,Integer>map;
+    public SpecialQueue() {
+        // Define Data Structures
+        pq = new LinkedList<>();
+        map = new TreeMap<>();
+    }
+    public void enqueue(int x) {
+        // Insert element into the queue
+        pq.add(x);
+        map.put(x,map.getOrDefault(x,0)+1);
+    }
+
+    public void dequeue() {
+        // Remove element from the queue
+        int toRem = pq.poll();
+        map.put(toRem,map.getOrDefault(toRem,0)-1);
+        if(map.get(toRem)<=0){
+            map.remove(toRem);
+        }
+    }
+
+    public int getFront() {
+        // Get front element
+        return pq.peek();
+    }
+
+    public int getMin() {
+        // Get minimum element
+        return map.firstKey();
+    }
+
+    public int getMax() {
+        // Get maximum element
+        return map.lastKey();
+    }
+}
