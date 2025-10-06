@@ -1,0 +1,66 @@
+class Solution {
+    private boolean backtrack(int n,boolean[][] visited,
+                            int[][] directions,int[][] maze, int row, int col,int size){
+        if(size == n*n-1){
+            return true;
+        }
+        
+        for(int[] dir:directions){
+            int newRow = row+dir[0];
+            int newCol = col+dir[1];
+            if(newRow>=0 && newRow<n && newCol>=0 && newCol<n && !visited[newRow][newCol]){
+                // if the cell is valid we have two options
+                // 1st visit that place
+                visited[newRow][newCol] = true;
+                maze[newRow][newCol] = maze[row][col]+1;
+                if(backtrack(n,visited,directions,maze,newRow,newCol,size+1)){
+                    return true;
+                }
+                // 2nd is not visit the place
+                visited[newRow][newCol] = false;
+                maze[newRow][newCol] = -1;
+            }
+        }
+        
+        return false;
+    }
+    public ArrayList<ArrayList<Integer>> knightTour(int n) {
+        // code here
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        
+        boolean[][] visited = new boolean[n][n];
+        int[][] maze = new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                maze[i][j]=-1;
+            }
+        }
+        maze[0][0]=0;
+        visited[0][0] = true;
+        int[][] directions = {
+                                {1,2},
+                                {1,-2},
+                                {-1, 2},
+                                {-1, -2},
+                                {2,1},
+                                {2,-1},
+                                {-2,1},
+                                {-2,-1},
+                             };
+        int size = 0;
+        
+        if(backtrack(n,visited,directions,maze,0,0,size)){
+            for(int i=0;i<n;i++){
+                ArrayList<Integer> curr = new ArrayList<>();
+                for(int j=0;j<n;j++){
+                    // System.out.print(maze[i][j]+" ");
+                    curr.add(maze[i][j]);
+                }
+                list.add(curr);
+                // System.out.println();
+            }
+        }
+        
+        return list;
+    }
+}
