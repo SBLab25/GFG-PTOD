@@ -1,0 +1,31 @@
+/*
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+} */
+
+class Solution {
+    static int val;
+    public static void transformTree(Node root) {
+        // code here
+        val = 0;
+        transformTree2(root);
+    }
+    private static void transformTree2(Node root){
+        if(root == null) return;
+        
+        transformTree2(root.right);
+        
+        int newVal = val + root.data;
+        root.data = val;
+        val = newVal;
+        
+        transformTree2(root.left);
+    }
+}
