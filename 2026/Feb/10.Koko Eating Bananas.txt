@@ -1,0 +1,40 @@
+class Solution {
+    public int kokoEat(int[] arr, int k) {
+        // code here
+        int max_value=Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++){
+            max_value=Math.max(max_value,arr[i]);
+        }
+        int s=1;
+        int end=max_value;
+        int ans=0;
+        while(s<=end){
+            int mid=(s+end)/2;
+            if(isPossibleToFinishBananas(arr,k,mid)){
+                ans=mid;
+                end=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        
+        return ans;
+    }
+    public boolean isPossibleToFinishBananas(int []arr,int k,int s){
+    int totalTimeTaken=0;
+        for(int i=0;i<arr.length;i++){
+            int timeTaken=0;
+            if(arr[i]%s==0){
+              timeTaken=  arr[i]/s;
+            }
+            else{
+              timeTaken=  arr[i]/s+1;
+            }
+            totalTimeTaken+=timeTaken;
+            if(totalTimeTaken>k)
+            return false;
+        }
+        return true;
+    }
+}
