@@ -1,0 +1,16 @@
+class Solution {
+    boolean canFormPalindrome(String s) {
+        // code here
+        int str = 0;
+        for(char c:s.toCharArray()){
+            int index = c-'a';
+            str^=(1<<index);
+        }
+        
+        str = str & (str - 1);
+        if(str==0){
+            return true;
+        }
+        return false;
+    }
+}
