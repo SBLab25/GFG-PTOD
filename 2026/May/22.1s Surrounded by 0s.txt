@@ -1,0 +1,44 @@
+class Solution {
+    int n,m;
+    int cntOnes(int[][] grid) {
+        // code here
+        n = grid.length;
+        m = grid[0].length;
+        
+        for (int col=0; col<m; col++) {
+            
+            if (grid[0][col] == 1) openOnes(grid, 0, col);
+            if (grid[n-1][col] == 1) openOnes(grid, n-1, col);
+        }
+        
+        for (int row=1; row<n-1; row++) {
+            
+            if (grid[row][0] == 1) openOnes(grid, row, 0);
+            if (grid[row][m-1] == 1) openOnes(grid, row, m-1);
+        }
+        
+        int cnt = 0;
+        for (int row=0; row<n; row++) {
+            for (int col=0; col<m; col++) {
+                
+                if (grid[row][col] == 1) cnt++;
+            }
+        }
+        return cnt;
+    }
+    
+    private void openOnes(int[][] grid, int row, int col) {
+        
+        grid[row][col] = 2;
+        int[][] dir = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        
+        for (int i=0; i<4; i++) {
+            int nr = row + dir[i][0];
+            int nc = col + dir[i][1];
+            
+            if ((nr >= 0 && nr < n) && (nc >= 0 && nc < m) && grid[nr][nc] == 1) {
+                openOnes(grid, nr, nc);
+            }
+        }
+    }
+};
