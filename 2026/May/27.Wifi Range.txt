@@ -1,0 +1,16 @@
+class Solution {
+    public boolean wifiRange(String s, int x) {
+        // code here
+        int count=0,flag=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='0') count++;
+            else {count=-x;
+            flag=1;
+            }
+            
+            if(count>x) return false;
+        }
+        if(flag==0 || count>0) return false;
+        return true;
+    }
+}
