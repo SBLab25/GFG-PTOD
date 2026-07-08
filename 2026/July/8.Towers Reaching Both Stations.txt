@@ -1,0 +1,84 @@
+class Solution {
+    public int countCoordinates(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+
+        int[][] v = new int[n][m];
+        Queue<int[]> q = new LinkedList<>();
+
+        for (int i = 0; i < m - 1; i++) {
+            q.offer(new int[]{0, i});
+            v[0][i]++;
+        }
+        for (int i = 0; i < n - 1; i++) {
+            q.offer(new int[]{i, 0});
+            v[i][0]++;
+        }
+
+        bfs(mat, v, q);
+
+        int[][] v1 = new int[n][m];
+
+        for (int i = 1; i < m; i++) {
+            q.offer(new int[]{n - 1, i});
+            v1[n - 1][i]++;
+        }
+        for (int i = 1; i < n; i++) {
+            q.offer(new int[]{i, m - 1});
+            v1[i][m - 1]++;
+        }
+
+        bfs(mat, v1, q);
+
+        v[0][m - 1]++;
+        v1[0][m - 1]++;
+        v[n - 1][0]++;
+        v1[n - 1][0]++;
+
+        int[][] v2 = new int[n][m];
+
+        q.offer(new int[]{0, m - 1});
+        q.offer(new int[]{n - 1, 0});
+        v2[0][m - 1]++;
+        v2[n - 1][0]++;
+
+        bfs(mat, v2, q);
+
+        int cnt = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if ((v[i][j] > 0 && v1[i][j] > 0) || v2[i][j] > 0) {
+                    cnt++;
+                }
+            }
+        }
+
+        return cnt;
+    }
+
+    private void bfs(int[][] mat, int[][] vis, Queue<int[]> q) {
+        int n = mat.length;
+        int m = mat[0].length;
+
+        int[] dr = {1, -1, 0, 0};
+        int[] dc = {0, 0, 1, -1};
+
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            int a = cur[0];
+            int b = cur[1];
+
+            for (int k = 0; k < 4; k++) {
+                int na = a + dr[k];
+                int nb = b + dc[k];
+
+                if (na >= 0 && na < n && nb >= 0 && nb < m
+                        && mat[na][nb] >= mat[a][b]
+                        && vis[na][nb] == 0) {
+                    vis[na][nb]++;
+                    q.offer(new int[]{na, nb});
+                }
+            }
+        }
+    }
+}
