@@ -1,29 +1,38 @@
 class Solution {
-    public String evaluate(String s, List<List<String>> knowledge) {
-        HashMap<String,String> h= new HashMap<>();
-         for (List<String> l:knowledge) {
-            h.put(l.get(0),l.get(1));
+    public int minimumCost(int x, int s, int m, int l, int cs, int cm, int cl) {
+        // code here
+        int maxArea = x + l;
+        int INF = Integer.MAX_VALUE / 2;
+
+        int[] dp = new int[maxArea + 1];
+
+        for (int i = 1; i <= maxArea; i++) {
+            dp[i] = INF;
         }
-        String ans="";
-        for(int i=0;i<s.length();i++){
-            char ch=s.charAt(i);
-            if(ch=='('){
-                i++;
-                String r="";
-                while(s.charAt(i)!=')' && i<s.length()){
-                    r+=s.charAt(i);
-                    i++;
-                }
-                //System.out.println(r);
-                if(h.containsKey(r)){
-                    ans+=h.get(r);
-                }
-                else
-                    ans+="?";
+
+        dp[0] = 0;
+
+        for (int area = 1; area <= maxArea; area++) {
+            if (area >= s) {
+                dp[area] = Math.min(dp[area], dp[area - s] + cs);
             }
-            else
-                ans+=ch;
+
+            if (area >= m) {
+                dp[area] = Math.min(dp[area], dp[area - m] + cm);
+            }
+
+            if (area >= l) {
+                dp[area] = Math.min(dp[area], dp[area - l] + cl);
+            }
         }
-        return ans;
+
+        int answer = INF;
+
+        // We need total area >= x
+        for (int area = x; area <= maxArea; area++) {
+            answer = Math.min(answer, dp[area]);
+        }
+
+        return answer;
     }
 }

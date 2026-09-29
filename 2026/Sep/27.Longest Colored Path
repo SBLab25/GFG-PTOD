@@ -1,4 +1,7 @@
-int n = s.length();
+class Solution {
+    public int longestPath(String s, int[][] edges) {
+        // code here
+        int n = s.length();
 
         // Build graph
         List<List<Integer>> adj = new ArrayList<>();
@@ -142,3 +145,5 @@ int n = s.length();
         }
 
         return dist;
+    }
+}
