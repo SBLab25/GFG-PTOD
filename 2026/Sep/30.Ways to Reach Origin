@@ -1,0 +1,24 @@
+class Solution {
+    int mod=(int)1e9+7;
+
+    public int path(int x,int y,int[][] dp){
+        if(x==0 && y==0) return 1;
+        if(x<0 || y<0) return 0;
+
+        if(dp[x][y]!=-1) return dp[x][y];
+
+        int left=path(x-1,y,dp);
+        int down=path(x,y-1,dp);
+
+        return dp[x][y]=(down%mod+left%mod)%mod;
+    }
+    public int ways(int x, int y) {
+        // code here
+        int[][] dp=new int[x+1][y+1];
+
+        for(int i=0;i<=x;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        return (path(x,y,dp)%mod);
+    }
+}
