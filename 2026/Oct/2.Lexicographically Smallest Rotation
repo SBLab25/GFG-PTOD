@@ -1,0 +1,26 @@
+class Solution {
+    public String lexiString(String s) {
+        // code here
+        String x=s;
+        int l=s.length();
+        boolean breaks=false;
+        for(char c='a'; c<='z';c++){
+            for(int i=0;i<l;i++){
+                if(i!=0 && s.charAt(i)==s.charAt(i-1)){
+                    continue;
+                }
+                if(s.charAt(i)==c){
+                    String rs=s.substring(i,l)+s.substring(0,i);
+                    if(x.compareTo(rs)>0){
+                        x=rs;
+                    }
+                    breaks=true;
+                }
+            }
+            if(breaks){
+                break;
+            }
+        }
+        return x;
+    }
+}
