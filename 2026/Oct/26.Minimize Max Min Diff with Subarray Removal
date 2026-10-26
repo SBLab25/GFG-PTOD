@@ -1,0 +1,45 @@
+class Solution {
+    public int minDiff(int k, int[] arr) {
+        // code here
+        int n =  arr.length;
+        int[]prefixmin =new int[n];
+        int[]prefixmax = new int[n];
+        int[]suffixmin = new int[n];
+        int[]suffixmax = new int[n];
+        
+        prefixmax[0] = arr[0];
+        prefixmin[0] = arr[0];
+        for(int i=1;i<n;i++){
+            prefixmax[i] = Math.max(prefixmax[i-1],arr[i]);
+            prefixmin[i] = Math.min(prefixmin[i-1],arr[i]);
+        }
+        
+        suffixmax[n-1] = arr[n-1];
+        suffixmin[n-1] = arr[n-1];
+        for(int i=n-2;i>=0;i--){
+            suffixmax[i] = Math.max(suffixmax[i+1],arr[i]);
+            suffixmin[i] = Math.min(suffixmin[i+1],arr[i]);
+        }
+        int ans = Integer.MAX_VALUE;
+        
+        for(int i=0;i<=n-k;i++){
+            int left = i-1;
+            int right = i+k;
+
+            int maxVal = Integer.MIN_VALUE;
+            int minVal = Integer.MAX_VALUE;
+
+            if(left>=0){
+                maxVal = Math.max(maxVal,prefixmax[left]);
+                minVal = Math.min(minVal,prefixmin[left]);
+            }
+
+            if(right < n){
+                maxVal = Math.max(maxVal,suffixmax[right]);
+                minVal = Math.min(minVal,suffixmin[right]);
+            }
+            ans = Math.min(ans,maxVal-minVal);
+        }
+        return ans;
+    }
+}
