@@ -1,0 +1,26 @@
+class Solution {
+    public int maxPackages(int[] arr, int totalTime) {
+        // code here
+        int maxFruit = 0;
+        int left = 0;
+        int right = 0;
+        int n = arr.length;
+        int currentSum = 0;
+
+        while(right < n){
+            currentSum = currentSum + arr[right];
+            maxFruit = Math.max(maxFruit, currentSum);
+
+            int window = right - left + 1;
+
+            if(window < totalTime){
+                right++;
+            }else if(window == totalTime){
+                currentSum = currentSum - arr[left];
+                left++;
+                right++;
+            }
+        }
+        return maxFruit;
+    }
+}
