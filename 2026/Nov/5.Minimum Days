@@ -1,0 +1,20 @@
+class Solution {
+    public int getMinimumDays(String s, int[] p) {
+        // code here
+        int n = s.length();
+        int[] dayOfIndex = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            dayOfIndex[p[i]] = i + 1;
+        }
+        int minDaysRequired = 0;
+
+        for (int j = 0; j < n - 1; j++) {
+            if (s.charAt(j) == s.charAt(j + 1)) {
+                int dayResolved = Math.min(dayOfIndex[j], dayOfIndex[j + 1]);
+                minDaysRequired = Math.max(minDaysRequired, dayResolved);
+            }
+        }
+        return minDaysRequired;
+    }
+}
