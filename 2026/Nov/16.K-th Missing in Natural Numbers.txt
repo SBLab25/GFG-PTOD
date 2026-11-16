@@ -1,0 +1,15 @@
+class Solution {
+    public int findKthSmall(int[] arr, int k) {
+        // code here
+        Arrays.sort(arr);
+        int res = k;
+        for (int x : arr) {
+            if (x <= res) {
+                res++;
+            } else {
+                break;
+            }
+        }
+        return res;
+    }
+}
